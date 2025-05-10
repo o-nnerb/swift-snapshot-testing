@@ -21,10 +21,10 @@ import XCTest
 ///
 /// Exemplo:
 ///   ```swift
-///   try await assertSnapshot(myView, as: .image(layout: .iPhone15ProMax), named: "dark_mode")
+///   try await assertSnapshot(of: myView, as: .image(layout: .iPhone15ProMax), named: "dark_mode")
 ///   ```
 public func assertSnapshot<Input: Sendable, Output: BytesRepresentable> (
-    _ input: @autoclosure @Sendable () async throws -> Input,
+    of input: @autoclosure @Sendable () async throws -> Input,
     as configuration: SnapshotConfiguration<Input, Output>,
     serialization: DataSerialization = DataSerialization(),
     named name: String? = nil,
@@ -86,7 +86,7 @@ public func assertSnapshot<Input: Sendable, Output: BytesRepresentable> (
 ///   try await assertSnapshots(myView, as: strategies)
 ///   ```
 public func assertSnapshots<Input: Sendable, Output: BytesRepresentable>(
-    _ input: @autoclosure @Sendable () async throws -> Input,
+    of input: @autoclosure @Sendable () async throws -> Input,
     as strategies: [String: SnapshotConfiguration<Input, Output>],
     serialization: DataSerialization = DataSerialization(),
     record recording: RecordMode? = nil,
@@ -98,7 +98,7 @@ public func assertSnapshots<Input: Sendable, Output: BytesRepresentable>(
 ) async throws {
     for (name, configuration) in strategies {
         try? await assertSnapshot(
-            await input(),
+            of: await input(),
             as: configuration,
             serialization: serialization,
             named: name,
@@ -139,7 +139,7 @@ public func assertSnapshots<Input: Sendable, Output: BytesRepresentable>(
 ///   try await assertSnapshots(myView, as: strategies)
 ///   ```
 public func assertSnapshots<Input: Sendable, Output: BytesRepresentable>(
-    _ input: @autoclosure @Sendable () async throws -> Input,
+    of input: @autoclosure @Sendable () async throws -> Input,
     as strategies: [SnapshotConfiguration<Input, Output>],
     serialization: DataSerialization = DataSerialization(),
     record recording: RecordMode? = nil,
@@ -151,7 +151,7 @@ public func assertSnapshots<Input: Sendable, Output: BytesRepresentable>(
 ) async throws {
     for strategy in strategies {
         try? await assertSnapshot(
-            await input(),
+            of: await input(),
             as: strategy,
             serialization: serialization,
             record: recording,

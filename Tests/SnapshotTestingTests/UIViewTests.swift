@@ -11,7 +11,7 @@ struct UIViewTests {
         label.text = "Hello World"
         label.backgroundColor = .white
         label.textColor = .black
-        try await assertSnapshot(label, as: .image)
+        try await assertSnapshot(of: label, as: .image)
     }
 
     @Test
@@ -44,7 +44,10 @@ struct UIViewTests {
             rectangleView.heightAnchor.constraint(equalToConstant: 200)
         ])
 
-        try await assertSnapshot(scrollView, as: .image(layout: .fixed(width: 400, height: 400)))
+        try await assertSnapshot(
+            of: scrollView,
+            as: .image(layout: .fixed(width: 400, height: 400))
+        )
     }
 
     @Test
@@ -58,7 +61,7 @@ struct UIViewTests {
             label.text = "Other text"
         }
 
-        try await assertSnapshot(label, as: .image(delay: 4))
+        try await assertSnapshot(of: label, as: .image(delay: 4))
     }
 
     @Test
@@ -70,7 +73,7 @@ struct UIViewTests {
             view.widthAnchor.constraint(equalToConstant: 600)
         ])
 
-        try await assertSnapshot(view, as: .image)
+        try await assertSnapshot(of: view, as: .image)
     }
 
     @Test
@@ -96,7 +99,7 @@ struct UIViewTests {
             widthConstraint.constant /= 2
         }
 
-        try await assertSnapshot(view, as: .image(delay: 6))
+        try await assertSnapshot(of: view, as: .image(delay: 6))
     }
 
     @Test
@@ -116,14 +119,20 @@ struct UIViewTests {
             contentView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
         ])
 
-        try await assertSnapshot(view, as: .image(layout: .device(.iPhone16Pro)))
+        try await assertSnapshot(
+            of: view,
+            as: .image(layout: .device(.iPhone16Pro))
+        )
     }
 
     @Test
     func viewInKeyWindow() async throws {
         let view = UIView()
         view.backgroundColor = .yellow
-        try await assertSnapshot(view, as: .image(drawHierarchyInKeyWindow: true))
+        try await assertSnapshot(
+            of: view,
+            as: .image(drawHierarchyInKeyWindow: true)
+        )
     }
 
     @Test
@@ -144,20 +153,26 @@ struct UIViewTests {
             subview.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
         ])
         
-        try await assertSnapshot(view, as: .image(
-            drawHierarchyInKeyWindow: true,
-            layout: .device(.iPhone16Pro)
-        ))
+        try await assertSnapshot(
+            of: view,
+            as: .image(
+                drawHierarchyInKeyWindow: true,
+                layout: .device(.iPhone16Pro)
+            )
+        )
     }
 
     @Test
     func viewInKeyWindowWithFixedSize() async throws {
         let view = UIView()
         view.backgroundColor = .yellow
-        try await assertSnapshot(view, as: .image(
-            drawHierarchyInKeyWindow: true,
-            layout: .fixed(width: 300, height: 150)
-        ))
+        try await assertSnapshot(
+            of: view,
+            as: .image(
+                drawHierarchyInKeyWindow: true,
+                layout: .fixed(width: 300, height: 150)
+            )
+        )
     }
 
     @Test
@@ -171,7 +186,10 @@ struct UIViewTests {
             view.widthAnchor.constraint(equalToConstant: 2_000),
         ])
 
-        try await assertSnapshot(view, as: .image)
+        try await assertSnapshot(
+            of: view,
+            as: .image
+        )
     }
 
     @Test
@@ -180,13 +198,13 @@ struct UIViewTests {
         view.backgroundColor = .systemBackground
 
         try await assertSnapshot(
-            view,
+            of: view,
             as: .image(traits: .init(userInterfaceStyle: .light)),
             named: "lightMode"
         )
 
         try await assertSnapshot(
-            view,
+            of: view,
             as: .image(traits: .init(userInterfaceStyle: .dark)),
             named: "darkMode"
         )
@@ -202,19 +220,19 @@ struct UIViewTests {
         label.adjustsFontForContentSizeCategory = true
 
         try await assertSnapshot(
-            label,
+            of: label,
             as: .image(traits: .init(preferredContentSizeCategory: .extraSmall)),
             named: "extraSmall"
         )
 
         try await assertSnapshot(
-            label,
+            of: label,
             as: .image(traits: .init(preferredContentSizeCategory: .large)),
             named: "large"
         )
 
         try await assertSnapshot(
-            label,
+            of: label,
             as: .image(traits: .init(preferredContentSizeCategory: .accessibilityExtraExtraExtraLarge)),
             named: "accessibilityExtraExtraExtraLarge"
         )
@@ -239,7 +257,7 @@ struct UIViewTests {
         ])
 
         try await assertSnapshot(
-            view,
+            of: view,
             as: .image(
                 drawHierarchyInKeyWindow: true,
                 layout: .device(.iPhone16Pro)
@@ -248,7 +266,7 @@ struct UIViewTests {
         )
 
         try await assertSnapshot(
-            view,
+            of: view,
             as: .image(layout: .device(.iPhone16Pro)),
             named: "iPhone16Pro"
         )
@@ -274,7 +292,7 @@ struct UIViewTests {
         try await withThrowingTaskGroup(of: Void.self) { group in
             group.addTask {
                 try await assertSnapshot(
-                    view,
+                    of: view,
                     as: .image(
                         layout: .device(.iPhone16Pro),
                         delay: 1
@@ -285,7 +303,7 @@ struct UIViewTests {
 
             group.addTask {
                 try await assertSnapshot(
-                    view,
+                    of: view,
                     as: .image(
                         layout: .device(.iPhone16Pro),
                         delay: 2

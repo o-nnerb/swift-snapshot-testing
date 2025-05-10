@@ -22,7 +22,7 @@ import Foundation
 /// - Exemplo:
 ///   ```swift
 ///   withSnapshotTesting(record: .always) {
-///       assertSnapshot(myView, as: .image()) // Grava o snapshot mesmo se já existir
+///       assertSnapshot(of: myView, as: .image()) // Grava o snapshot mesmo se já existir
 ///   }
 ///   ```
 public func withSnapshotTesting<R>(
@@ -61,7 +61,7 @@ public func withSnapshotTesting<R>(
 /// - Exemplo:
 ///   ```swift
 ///   try await withSnapshotTesting(diffTool: .ksdiff) {
-///       await assertSnapshot(myAsyncView(), as: .image())
+///       await assertSnapshot(of: myAsyncView(), as: .image())
 ///   }
 ///   ```
 public func withSnapshotTesting<R>(

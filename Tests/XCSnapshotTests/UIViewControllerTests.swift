@@ -15,7 +15,7 @@ class UIViewControllerTests: XCTestCase {
             }
         }
 
-        try await assertSnapshot(await TestingViewController(), as: .image)
+        try await assertSnapshot(of: await TestingViewController(), as: .image)
     }
 
     func testScrollView() async throws {
@@ -50,7 +50,7 @@ class UIViewControllerTests: XCTestCase {
         }
 
         try await assertSnapshot(
-            await TestingViewController(),
+            of: await TestingViewController(),
             as: .image(layout: .fixed(width: 400, height: 400))
         )
     }
@@ -75,7 +75,10 @@ class UIViewControllerTests: XCTestCase {
             }
         }
 
-        try await assertSnapshot(await TestingViewController(), as: .image(delay: 4))
+        try await assertSnapshot(
+            of: await TestingViewController(),
+            as: .image(delay: 4)
+        )
     }
 
     func testFramedRectangle() async throws {
@@ -94,7 +97,10 @@ class UIViewControllerTests: XCTestCase {
             }
         }
 
-        try await assertSnapshot(await TestingViewController(), as: .image)
+        try await assertSnapshot(
+            of: await TestingViewController(),
+            as: .image
+        )
     }
 
     func testFramedRectangleWithDelay() async throws {
@@ -126,7 +132,10 @@ class UIViewControllerTests: XCTestCase {
             }
         }
 
-        try await assertSnapshot(await TestingViewController(), as: .image(delay: 6))
+        try await assertSnapshot(
+            of: await TestingViewController(),
+            as: .image(delay: 6)
+        )
     }
 
     func testViewWithSafeArea() async throws {
@@ -150,9 +159,12 @@ class UIViewControllerTests: XCTestCase {
             }
         }
 
-        try await assertSnapshot(await TestingViewController(), as: .image(
-            layout: .device(.iPhone16Pro)
-        ))
+        try await assertSnapshot(
+            of: await TestingViewController(),
+            as: .image(
+                layout: .device(.iPhone16Pro)
+            )
+        )
     }
 
     func testViewInKeyWindow() async throws {
@@ -164,10 +176,13 @@ class UIViewControllerTests: XCTestCase {
             }
         }
 
-        try await assertSnapshot(await TestingViewController(), as: .image(
-            drawHierarchyInKeyWindow: true,
-            layout: .device(.iPhone16Pro)
-        ))
+        try await assertSnapshot(
+            of: await TestingViewController(),
+            as: .image(
+                drawHierarchyInKeyWindow: true,
+                layout: .device(.iPhone16Pro)
+            )
+        )
     }
 
     func testViewInKeyWindowWithSafeArea() async throws {
@@ -193,10 +208,13 @@ class UIViewControllerTests: XCTestCase {
             }
         }
 
-        try await assertSnapshot(await TestingViewController(), as: .image(
-            drawHierarchyInKeyWindow: true,
-            layout: .device(.iPhone16Pro)
-        ))
+        try await assertSnapshot(
+            of: await TestingViewController(),
+            as: .image(
+                drawHierarchyInKeyWindow: true,
+                layout: .device(.iPhone16Pro)
+            )
+        )
     }
 
     func testViewInKeyWindowWithFixedSize() async throws {
@@ -208,10 +226,13 @@ class UIViewControllerTests: XCTestCase {
             }
         }
 
-        try await assertSnapshot(await TestingViewController(), as: .image(
-            drawHierarchyInKeyWindow: true,
-            layout: .fixed(width: 300, height: 150)
-        ))
+        try await assertSnapshot(
+            of: await TestingViewController(),
+            as: .image(
+                drawHierarchyInKeyWindow: true,
+                layout: .fixed(width: 300, height: 150)
+            )
+        )
     }
 
     func testViewWithSizeTooBig() async throws {
@@ -228,7 +249,10 @@ class UIViewControllerTests: XCTestCase {
             }
         }
 
-        try await assertSnapshot(await TestingViewController(), as: .image)
+        try await assertSnapshot(
+            of: await TestingViewController(),
+            as: .image
+        )
     }
 
     func testCustomUserInterfaceStyle() async throws {
@@ -241,7 +265,7 @@ class UIViewControllerTests: XCTestCase {
         }
 
         try await assertSnapshot(
-            await TestingViewController(),
+            of: await TestingViewController(),
             as: .image(
                 layout: .device(.iPhone16Pro),
                 traits: .init(userInterfaceStyle: .light)
@@ -250,7 +274,7 @@ class UIViewControllerTests: XCTestCase {
         )
 
         try await assertSnapshot(
-            await TestingViewController(),
+            of: await TestingViewController(),
             as: .image(
                 layout: .device(.iPhone16Pro),
                 traits: .init(userInterfaceStyle: .dark)
@@ -273,19 +297,19 @@ class UIViewControllerTests: XCTestCase {
         }
 
         try await assertSnapshot(
-            await TestingViewController(),
+            of: await TestingViewController(),
             as: .image(traits: .init(preferredContentSizeCategory: .extraSmall)),
             named: "extraSmall"
         )
 
         try await assertSnapshot(
-            await TestingViewController(),
+            of: await TestingViewController(),
             as: .image(traits: .init(preferredContentSizeCategory: .large)),
             named: "large"
         )
 
         try await assertSnapshot(
-            await TestingViewController(),
+            of: await TestingViewController(),
             as: .image(traits: .init(preferredContentSizeCategory: .accessibilityExtraExtraExtraLarge)),
             named: "accessibilityExtraExtraExtraLarge"
         )
@@ -308,9 +332,12 @@ class UIViewControllerTests: XCTestCase {
         navigationController.navigationBar.standardAppearance = appearance
         navigationController.navigationBar.scrollEdgeAppearance = appearance
 
-        try await assertSnapshot(navigationController, as: .image(
-            layout: .device(.iPhone16Pro)
-        ))
+        try await assertSnapshot(
+            of: navigationController,
+            as: .image(
+                layout: .device(.iPhone16Pro)
+            )
+        )
     }
 
     func testTabBarController() async throws {
@@ -322,9 +349,12 @@ class UIViewControllerTests: XCTestCase {
         let tabBarController = UITabBarController()
         tabBarController.setViewControllers([viewController], animated: false)
 
-        try await assertSnapshot(tabBarController, as: .image(
-            layout: .device(.iPhone16Pro)
-        ))
+        try await assertSnapshot(
+            of: tabBarController,
+            as: .image(
+                layout: .device(.iPhone16Pro)
+            )
+        )
     }
 
     func testTabBarWithNavigationController() async throws {
@@ -354,9 +384,12 @@ class UIViewControllerTests: XCTestCase {
         navigationController.tabBarItem.title = "Home"
         navigationController.tabBarItem.image = .init(systemName: "house")
 
-        try await assertSnapshot(tabBarController, as: .image(
-            layout: .device(.iPhone16Pro)
-        ))
+        try await assertSnapshot(
+            of: tabBarController,
+            as: .image(
+                layout: .device(.iPhone16Pro)
+            )
+        )
     }
 
     func testHierarchyAndSimulatedDevice() async throws {
@@ -383,7 +416,7 @@ class UIViewControllerTests: XCTestCase {
         }
 
         try await assertSnapshot(
-            await TestingViewController(),
+            of: await TestingViewController(),
             as: .image(
                 drawHierarchyInKeyWindow: true,
                 layout: .device(.iPhone16Pro)
@@ -392,7 +425,7 @@ class UIViewControllerTests: XCTestCase {
         )
 
         try await assertSnapshot(
-            await TestingViewController(),
+            of: await TestingViewController(),
             as: .image(layout: .device(.iPhone16Pro)),
             named: "iPhone16Pro"
         )
@@ -424,7 +457,7 @@ class UIViewControllerTests: XCTestCase {
         try await withThrowingTaskGroup(of: Void.self) { group in
             group.addTask {
                 try await assertSnapshot(
-                    viewController,
+                    of: viewController,
                     as: .image(
                         layout: .device(.iPhone16Pro),
                         delay: 1
@@ -435,7 +468,7 @@ class UIViewControllerTests: XCTestCase {
 
             group.addTask {
                 try await assertSnapshot(
-                    viewController,
+                    of: viewController,
                     as: .image(
                         layout: .device(.iPhone16Pro),
                         delay: 2

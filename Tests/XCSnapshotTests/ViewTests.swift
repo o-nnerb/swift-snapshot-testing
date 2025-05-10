@@ -14,7 +14,7 @@ class ViewTests: XCTestCase {
             }
         }
 
-        try await assertSnapshot(TestingView(), as: .image)
+        try await assertSnapshot(of: TestingView(), as: .image)
     }
 
     func testScrollView() async throws {
@@ -28,7 +28,10 @@ class ViewTests: XCTestCase {
             }
         }
 
-        try await assertSnapshot(TestingView(), as: .image(layout: .fixed(width: 400, height: 400)))
+        try await assertSnapshot(
+            of: TestingView(),
+            as: .image(layout: .fixed(width: 400, height: 400))
+        )
     }
 
     func testLabelWithDelay() async throws {
@@ -47,7 +50,7 @@ class ViewTests: XCTestCase {
             }
         }
 
-        try await assertSnapshot(TestingView(), as: .image(delay: 4))
+        try await assertSnapshot(of: TestingView(), as: .image(delay: 4))
     }
 
     func testFramedRectangle() async throws {
@@ -59,7 +62,7 @@ class ViewTests: XCTestCase {
             }
         }
 
-        try await assertSnapshot(TestingView(), as: .image)
+        try await assertSnapshot(of: TestingView(), as: .image)
     }
 
     func testFramedRectangleWithDelay() async throws {
@@ -84,7 +87,7 @@ class ViewTests: XCTestCase {
             }
         }
 
-        try await assertSnapshot(TestingView(), as: .image(delay: 6))
+        try await assertSnapshot(of: TestingView(), as: .image(delay: 6))
     }
 
     func testViewWithSafeArea() async throws {
@@ -101,7 +104,10 @@ class ViewTests: XCTestCase {
             }
         }
 
-        try await assertSnapshot(TestingView(), as: .image(layout: .device(.iPhone16Pro)))
+        try await assertSnapshot(
+            of: TestingView(),
+            as: .image(layout: .device(.iPhone16Pro))
+        )
     }
 
     func testViewInKeyWindow() async throws {
@@ -113,10 +119,13 @@ class ViewTests: XCTestCase {
             }
         }
 
-        try await assertSnapshot(TestingView(), as: .image(
-            drawHierarchyInKeyWindow: true,
-            layout: .device(.iPhone16Pro)
-        ))
+        try await assertSnapshot(
+            of: TestingView(),
+            as: .image(
+                drawHierarchyInKeyWindow: true,
+                layout: .device(.iPhone16Pro)
+            )
+        )
     }
 
     func testViewInKeyWindowWithSafeArea() async throws {
@@ -134,10 +143,13 @@ class ViewTests: XCTestCase {
             }
         }
 
-        try await assertSnapshot(TestingView(), as: .image(
-            drawHierarchyInKeyWindow: true,
-            layout: .device(.iPhone16Pro)
-        ))
+        try await assertSnapshot(
+            of: TestingView(),
+            as: .image(
+                drawHierarchyInKeyWindow: true,
+                layout: .device(.iPhone16Pro)
+            )
+        )
     }
 
     func testViewInKeyWindowWithFixedSize() async throws {
@@ -148,10 +160,13 @@ class ViewTests: XCTestCase {
             }
         }
 
-        try await assertSnapshot(TestingView(), as: .image(
-            drawHierarchyInKeyWindow: true,
-            layout: .fixed(width: 300, height: 150)
-        ))
+        try await assertSnapshot(
+            of: TestingView(),
+            as: .image(
+                drawHierarchyInKeyWindow: true,
+                layout: .fixed(width: 300, height: 150)
+            )
+        )
     }
 
     func testViewWithSizeTooBig() async throws {
@@ -163,7 +178,7 @@ class ViewTests: XCTestCase {
             }
         }
 
-        try await assertSnapshot(TestingView(), as: .image)
+        try await assertSnapshot(of: TestingView(), as: .image)
     }
 
     func testCustomUserInterfaceStyle() async throws {
@@ -176,7 +191,7 @@ class ViewTests: XCTestCase {
         }
 
         try await assertSnapshot(
-            TestingView(),
+            of: TestingView(),
             as: .image(
                 layout: .device(.iPhone16Pro),
                 traits: .init(userInterfaceStyle: .light)
@@ -185,7 +200,7 @@ class ViewTests: XCTestCase {
         )
 
         try await assertSnapshot(
-            TestingView(),
+            of: TestingView(),
             as: .image(
                 layout: .device(.iPhone16Pro),
                 traits: .init(userInterfaceStyle: .dark)
@@ -204,19 +219,19 @@ class ViewTests: XCTestCase {
         }
 
         try await assertSnapshot(
-            TestingView(),
+            of: TestingView(),
             as: .image(traits: .init(preferredContentSizeCategory: .extraSmall)),
             named: "extraSmall"
         )
 
         try await assertSnapshot(
-            TestingView(),
+            of: TestingView(),
             as: .image(traits: .init(preferredContentSizeCategory: .large)),
             named: "large"
         )
 
         try await assertSnapshot(
-            TestingView(),
+            of: TestingView(),
             as: .image(traits: .init(preferredContentSizeCategory: .accessibilityExtraExtraExtraLarge)),
             named: "accessibilityExtraExtraExtraLarge"
         )
@@ -238,7 +253,7 @@ class ViewTests: XCTestCase {
         }
 
         try await assertSnapshot(
-            TestingView(),
+            of: TestingView(),
             as: .image(
                 drawHierarchyInKeyWindow: true,
                 layout: .device(.iPhone16Pro)
@@ -247,7 +262,7 @@ class ViewTests: XCTestCase {
         )
 
         try await assertSnapshot(
-            TestingView(),
+            of: TestingView(),
             as: .image(layout: .device(.iPhone16Pro)),
             named: "iPhone16Pro"
         )
@@ -283,7 +298,7 @@ class ViewTests: XCTestCase {
         let viewModel = ViewModel()
 
         try await assertSnapshot(
-            await UINavigationController(
+            of: await UINavigationController(
                 rootViewController: UIHostingController(
                     rootView: TestingView(
                         viewModel: viewModel

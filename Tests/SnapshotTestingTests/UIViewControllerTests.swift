@@ -16,7 +16,7 @@ struct UIViewControllerTests {
             }
         }
 
-        try await assertSnapshot(await TestingViewController(), as: .image)
+        try await assertSnapshot(of: await TestingViewController(), as: .image)
     }
 
     @Test
@@ -52,7 +52,7 @@ struct UIViewControllerTests {
         }
 
         try await assertSnapshot(
-            await TestingViewController(),
+            of: await TestingViewController(),
             as: .image(layout: .fixed(width: 400, height: 400))
         )
     }
@@ -78,7 +78,10 @@ struct UIViewControllerTests {
             }
         }
 
-        try await assertSnapshot(await TestingViewController(), as: .image(delay: 4))
+        try await assertSnapshot(
+            of: await TestingViewController(),
+            as: .image(delay: 4)
+        )
     }
 
     @Test
@@ -98,7 +101,10 @@ struct UIViewControllerTests {
             }
         }
 
-        try await assertSnapshot(await TestingViewController(), as: .image)
+        try await assertSnapshot(
+            of: await TestingViewController(),
+            as: .image
+        )
     }
 
     @Test
@@ -131,7 +137,10 @@ struct UIViewControllerTests {
             }
         }
 
-        try await assertSnapshot(await TestingViewController(), as: .image(delay: 6))
+        try await assertSnapshot(
+            of: await TestingViewController(),
+            as: .image(delay: 6)
+        )
     }
 
     @Test
@@ -156,9 +165,12 @@ struct UIViewControllerTests {
             }
         }
 
-        try await assertSnapshot(await TestingViewController(), as: .image(
-            layout: .device(.iPhone16Pro)
-        ))
+        try await assertSnapshot(
+            of:await TestingViewController(),
+            as: .image(
+                layout: .device(.iPhone16Pro)
+            )
+        )
     }
 
     @Test
@@ -171,10 +183,13 @@ struct UIViewControllerTests {
             }
         }
 
-        try await assertSnapshot(await TestingViewController(), as: .image(
-            drawHierarchyInKeyWindow: true,
-            layout: .device(.iPhone16Pro)
-        ))
+        try await assertSnapshot(
+            of: await TestingViewController(),
+            as: .image(
+                drawHierarchyInKeyWindow: true,
+                layout: .device(.iPhone16Pro)
+            )
+        )
     }
 
     @Test
@@ -201,10 +216,13 @@ struct UIViewControllerTests {
             }
         }
 
-        try await assertSnapshot(await TestingViewController(), as: .image(
-            drawHierarchyInKeyWindow: true,
-            layout: .device(.iPhone16Pro)
-        ))
+        try await assertSnapshot(
+            of: await TestingViewController(),
+            as: .image(
+                drawHierarchyInKeyWindow: true,
+                layout: .device(.iPhone16Pro)
+            )
+        )
     }
 
     @Test
@@ -217,10 +235,13 @@ struct UIViewControllerTests {
             }
         }
 
-        try await assertSnapshot(await TestingViewController(), as: .image(
-            drawHierarchyInKeyWindow: true,
-            layout: .fixed(width: 300, height: 150)
-        ))
+        try await assertSnapshot(
+            of: await TestingViewController(),
+            as: .image(
+                drawHierarchyInKeyWindow: true,
+                layout: .fixed(width: 300, height: 150)
+            )
+        )
     }
 
     @Test
@@ -238,7 +259,10 @@ struct UIViewControllerTests {
             }
         }
 
-        try await assertSnapshot(await TestingViewController(), as: .image)
+        try await assertSnapshot(
+            of: await TestingViewController(),
+            as: .image
+        )
     }
 
     @Test
@@ -252,7 +276,7 @@ struct UIViewControllerTests {
         }
 
         try await assertSnapshot(
-            await TestingViewController(),
+            of: await TestingViewController(),
             as: .image(
                 layout: .device(.iPhone16Pro),
                 traits: .init(userInterfaceStyle: .light)
@@ -261,7 +285,7 @@ struct UIViewControllerTests {
         )
 
         try await assertSnapshot(
-            await TestingViewController(),
+            of: await TestingViewController(),
             as: .image(
                 layout: .device(.iPhone16Pro),
                 traits: .init(userInterfaceStyle: .dark)
@@ -285,19 +309,19 @@ struct UIViewControllerTests {
         }
 
         try await assertSnapshot(
-            await TestingViewController(),
+            of: await TestingViewController(),
             as: .image(traits: .init(preferredContentSizeCategory: .extraSmall)),
             named: "extraSmall"
         )
 
         try await assertSnapshot(
-            await TestingViewController(),
+            of: await TestingViewController(),
             as: .image(traits: .init(preferredContentSizeCategory: .large)),
             named: "large"
         )
 
         try await assertSnapshot(
-            await TestingViewController(),
+            of: await TestingViewController(),
             as: .image(traits: .init(preferredContentSizeCategory: .accessibilityExtraExtraExtraLarge)),
             named: "accessibilityExtraExtraExtraLarge"
         )
@@ -321,9 +345,12 @@ struct UIViewControllerTests {
         navigationController.navigationBar.standardAppearance = appearance
         navigationController.navigationBar.scrollEdgeAppearance = appearance
 
-        try await assertSnapshot(navigationController, as: .image(
-            layout: .device(.iPhone16Pro)
-        ))
+        try await assertSnapshot(
+            of: navigationController,
+            as: .image(
+                layout: .device(.iPhone16Pro)
+            )
+        )
     }
 
     @Test
@@ -336,9 +363,12 @@ struct UIViewControllerTests {
         let tabBarController = UITabBarController()
         tabBarController.setViewControllers([viewController], animated: false)
 
-        try await assertSnapshot(tabBarController, as: .image(
-            layout: .device(.iPhone16Pro)
-        ))
+        try await assertSnapshot(
+            of: tabBarController,
+            as: .image(
+                layout: .device(.iPhone16Pro)
+            )
+        )
     }
 
     @Test
@@ -369,9 +399,12 @@ struct UIViewControllerTests {
         navigationController.tabBarItem.title = "Home"
         navigationController.tabBarItem.image = .init(systemName: "house")
 
-        try await assertSnapshot(tabBarController, as: .image(
-            layout: .device(.iPhone16Pro)
-        ))
+        try await assertSnapshot(
+            of: tabBarController,
+            as: .image(
+                layout: .device(.iPhone16Pro)
+            )
+        )
     }
 
     @Test
@@ -399,7 +432,7 @@ struct UIViewControllerTests {
         }
 
         try await assertSnapshot(
-            await TestingViewController(),
+            of: await TestingViewController(),
             as: .image(
                 drawHierarchyInKeyWindow: true,
                 layout: .device(.iPhone16Pro)
@@ -408,7 +441,7 @@ struct UIViewControllerTests {
         )
 
         try await assertSnapshot(
-            await TestingViewController(),
+            of: await TestingViewController(),
             as: .image(layout: .device(.iPhone16Pro)),
             named: "iPhone16Pro"
         )
@@ -441,7 +474,7 @@ struct UIViewControllerTests {
         try await withThrowingTaskGroup(of: Void.self) { group in
             group.addTask {
                 try await assertSnapshot(
-                    viewController,
+                    of: viewController,
                     as: .image(
                         layout: .device(.iPhone16Pro),
                         delay: 1
@@ -452,7 +485,7 @@ struct UIViewControllerTests {
 
             group.addTask {
                 try await assertSnapshot(
-                    viewController,
+                    of: viewController,
                     as: .image(
                         layout: .device(.iPhone16Pro),
                         delay: 2

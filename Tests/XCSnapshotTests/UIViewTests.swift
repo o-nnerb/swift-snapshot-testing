@@ -10,7 +10,7 @@ class UIViewTests: XCTestCase {
         label.text = "Hello World"
         label.backgroundColor = .white
         label.textColor = .black
-        try await assertSnapshot(label, as: .image)
+        try await assertSnapshot(of: label, as: .image)
     }
 
     func testScrollViewFixedSize() async throws {
@@ -42,7 +42,10 @@ class UIViewTests: XCTestCase {
             rectangleView.heightAnchor.constraint(equalToConstant: 200)
         ])
 
-        try await assertSnapshot(scrollView, as: .image(layout: .fixed(width: 400, height: 400)))
+        try await assertSnapshot(
+            of: scrollView,
+            as: .image(layout: .fixed(width: 400, height: 400))
+        )
     }
 
     func testLabelWithDelay() async throws {
@@ -55,7 +58,10 @@ class UIViewTests: XCTestCase {
             label.text = "Other text"
         }
 
-        try await assertSnapshot(label, as: .image(delay: 4))
+        try await assertSnapshot(
+            of: label,
+            as: .image(delay: 4)
+        )
     }
 
     func testConstrainedRectangle() async throws {
@@ -66,7 +72,7 @@ class UIViewTests: XCTestCase {
             view.widthAnchor.constraint(equalToConstant: 600)
         ])
 
-        try await assertSnapshot(view, as: .image)
+        try await assertSnapshot(of: view, as: .image)
     }
 
     func testConstrainedRectangleWithDelay() async throws {
@@ -91,7 +97,7 @@ class UIViewTests: XCTestCase {
             widthConstraint.constant /= 2
         }
 
-        try await assertSnapshot(view, as: .image(delay: 6))
+        try await assertSnapshot(of: view, as: .image(delay: 6))
     }
 
     func testViewWithSafeArea() async throws {
@@ -110,13 +116,19 @@ class UIViewTests: XCTestCase {
             contentView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
         ])
 
-        try await assertSnapshot(view, as: .image(layout: .device(.iPhone16Pro)))
+        try await assertSnapshot(
+            of: view,
+            as: .image(layout: .device(.iPhone16Pro))
+        )
     }
 
     func testViewInKeyWindow() async throws {
         let view = UIView()
         view.backgroundColor = .yellow
-        try await assertSnapshot(view, as: .image(drawHierarchyInKeyWindow: true))
+        try await assertSnapshot(
+            of: view,
+            as: .image(drawHierarchyInKeyWindow: true)
+        )
     }
 
     func testViewInKeyWindowWithSafeArea() async throws {
@@ -136,7 +148,7 @@ class UIViewTests: XCTestCase {
             subview.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
         ])
         
-        try await assertSnapshot(view, as: .image(
+        try await assertSnapshot(of: view, as: .image(
             drawHierarchyInKeyWindow: true,
             layout: .device(.iPhone16Pro)
         ))
@@ -145,7 +157,7 @@ class UIViewTests: XCTestCase {
     func testViewInKeyWindowWithFixedSize() async throws {
         let view = UIView()
         view.backgroundColor = .yellow
-        try await assertSnapshot(view, as: .image(
+        try await assertSnapshot(of: view, as: .image(
             drawHierarchyInKeyWindow: true,
             layout: .fixed(width: 300, height: 150)
         ))
@@ -161,7 +173,7 @@ class UIViewTests: XCTestCase {
             view.widthAnchor.constraint(equalToConstant: 2_000),
         ])
 
-        try await assertSnapshot(view, as: .image)
+        try await assertSnapshot(of: view, as: .image)
     }
 
     func testCustomUserInterfaceStyle() async throws {
@@ -169,13 +181,13 @@ class UIViewTests: XCTestCase {
         view.backgroundColor = .systemBackground
 
         try await assertSnapshot(
-            view,
+            of: view,
             as: .image(traits: .init(userInterfaceStyle: .light)),
             named: "lightMode"
         )
 
         try await assertSnapshot(
-            view,
+            of: view,
             as: .image(traits: .init(userInterfaceStyle: .dark)),
             named: "darkMode"
         )
@@ -190,19 +202,19 @@ class UIViewTests: XCTestCase {
         label.adjustsFontForContentSizeCategory = true
 
         try await assertSnapshot(
-            label,
+            of: label,
             as: .image(traits: .init(preferredContentSizeCategory: .extraSmall)),
             named: "extraSmall"
         )
 
         try await assertSnapshot(
-            label,
+            of: label,
             as: .image(traits: .init(preferredContentSizeCategory: .large)),
             named: "large"
         )
 
         try await assertSnapshot(
-            label,
+            of: label,
             as: .image(traits: .init(preferredContentSizeCategory: .accessibilityExtraExtraExtraLarge)),
             named: "accessibilityExtraExtraExtraLarge"
         )
@@ -226,7 +238,7 @@ class UIViewTests: XCTestCase {
         ])
 
         try await assertSnapshot(
-            view,
+            of: view,
             as: .image(
                 drawHierarchyInKeyWindow: true,
                 layout: .device(.iPhone16Pro)
@@ -235,7 +247,7 @@ class UIViewTests: XCTestCase {
         )
 
         try await assertSnapshot(
-            view,
+            of: view,
             as: .image(layout: .device(.iPhone16Pro)),
             named: "iPhone16Pro"
         )
@@ -260,7 +272,7 @@ class UIViewTests: XCTestCase {
         try await withThrowingTaskGroup(of: Void.self) { group in
             group.addTask {
                 try await assertSnapshot(
-                    view,
+                    of: view,
                     as: .image(
                         layout: .device(.iPhone16Pro),
                         delay: 1
@@ -271,7 +283,7 @@ class UIViewTests: XCTestCase {
 
             group.addTask {
                 try await assertSnapshot(
-                    view,
+                    of: view,
                     as: .image(
                         layout: .device(.iPhone16Pro),
                         delay: 2

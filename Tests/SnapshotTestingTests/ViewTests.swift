@@ -15,7 +15,7 @@ struct ViewTests {
             }
         }
 
-        try await assertSnapshot(TestingView(), as: .image)
+        try await assertSnapshot(of: TestingView(), as: .image)
     }
 
     @Test
@@ -30,7 +30,10 @@ struct ViewTests {
             }
         }
 
-        try await assertSnapshot(TestingView(), as: .image(layout: .fixed(width: 400, height: 400)))
+        try await assertSnapshot(
+            of: TestingView(),
+            as: .image(layout: .fixed(width: 400, height: 400))
+        )
     }
 
     @Test
@@ -50,7 +53,7 @@ struct ViewTests {
             }
         }
 
-        try await assertSnapshot(TestingView(), as: .image(delay: 4))
+        try await assertSnapshot(of: TestingView(), as: .image(delay: 4))
     }
 
     @Test
@@ -63,7 +66,7 @@ struct ViewTests {
             }
         }
 
-        try await assertSnapshot(TestingView(), as: .image)
+        try await assertSnapshot(of: TestingView(), as: .image)
     }
 
     @Test
@@ -89,7 +92,7 @@ struct ViewTests {
             }
         }
 
-        try await assertSnapshot(TestingView(), as: .image(delay: 6))
+        try await assertSnapshot(of: TestingView(), as: .image(delay: 6))
     }
 
     @Test
@@ -107,7 +110,10 @@ struct ViewTests {
             }
         }
 
-        try await assertSnapshot(TestingView(), as: .image(layout: .device(.iPhone16Pro)))
+        try await assertSnapshot(
+            of: TestingView(),
+            as: .image(layout: .device(.iPhone16Pro))
+        )
     }
 
     @Test
@@ -120,10 +126,13 @@ struct ViewTests {
             }
         }
 
-        try await assertSnapshot(TestingView(), as: .image(
-            drawHierarchyInKeyWindow: true,
-            layout: .device(.iPhone16Pro)
-        ))
+        try await assertSnapshot(
+            of: TestingView(),
+            as: .image(
+                drawHierarchyInKeyWindow: true,
+                layout: .device(.iPhone16Pro)
+            )
+        )
     }
 
     @Test
@@ -142,10 +151,13 @@ struct ViewTests {
             }
         }
 
-        try await assertSnapshot(TestingView(), as: .image(
-            drawHierarchyInKeyWindow: true,
-            layout: .device(.iPhone16Pro)
-        ))
+        try await assertSnapshot(
+            of: TestingView(),
+            as: .image(
+                drawHierarchyInKeyWindow: true,
+                layout: .device(.iPhone16Pro)
+            )
+        )
     }
 
     @Test
@@ -157,10 +169,13 @@ struct ViewTests {
             }
         }
 
-        try await assertSnapshot(TestingView(), as: .image(
-            drawHierarchyInKeyWindow: true,
-            layout: .fixed(width: 300, height: 150)
-        ))
+        try await assertSnapshot(
+            of: TestingView(),
+            as: .image(
+                drawHierarchyInKeyWindow: true,
+                layout: .fixed(width: 300, height: 150)
+            )
+        )
     }
 
     @Test
@@ -173,7 +188,7 @@ struct ViewTests {
             }
         }
 
-        try await assertSnapshot(TestingView(), as: .image)
+        try await assertSnapshot(of: TestingView(), as: .image)
     }
 
     @Test
@@ -187,7 +202,7 @@ struct ViewTests {
         }
 
         try await assertSnapshot(
-            TestingView(),
+            of: TestingView(),
             as: .image(
                 layout: .device(.iPhone16Pro),
                 traits: .init(userInterfaceStyle: .light)
@@ -196,7 +211,7 @@ struct ViewTests {
         )
 
         try await assertSnapshot(
-            TestingView(),
+            of: TestingView(),
             as: .image(
                 layout: .device(.iPhone16Pro),
                 traits: .init(userInterfaceStyle: .dark)
@@ -216,19 +231,19 @@ struct ViewTests {
         }
 
         try await assertSnapshot(
-            TestingView(),
+            of: TestingView(),
             as: .image(traits: .init(preferredContentSizeCategory: .extraSmall)),
             named: "extraSmall"
         )
 
         try await assertSnapshot(
-            TestingView(),
+            of: TestingView(),
             as: .image(traits: .init(preferredContentSizeCategory: .large)),
             named: "large"
         )
 
         try await assertSnapshot(
-            TestingView(),
+            of: TestingView(),
             as: .image(traits: .init(preferredContentSizeCategory: .accessibilityExtraExtraExtraLarge)),
             named: "accessibilityExtraExtraExtraLarge"
         )
@@ -251,7 +266,7 @@ struct ViewTests {
         }
 
         try await assertSnapshot(
-            TestingView(),
+            of: TestingView(),
             as: .image(
                 drawHierarchyInKeyWindow: true,
                 layout: .device(.iPhone16Pro)
@@ -260,7 +275,7 @@ struct ViewTests {
         )
 
         try await assertSnapshot(
-            TestingView(),
+            of: TestingView(),
             as: .image(layout: .device(.iPhone16Pro)),
             named: "iPhone16Pro"
         )
@@ -297,7 +312,7 @@ struct ViewTests {
         let viewModel = ViewModel()
 
         try await assertSnapshot(
-            await UINavigationController(
+            of: await UINavigationController(
                 rootViewController: UIHostingController(
                     rootView: TestingView(
                         viewModel: viewModel
