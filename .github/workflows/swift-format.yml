@@ -1,0 +1,42 @@
+name: Swift Format
+
+on:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: format-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  swift-format:
+    runs-on: macOS-latest
+    steps:
+      - name: ⬇️ Get Sources
+        uses: actions/checkout@v4.0.0
+
+      - name: ☑️ Xcode Select
+        run: sudo xcode-select -s /Applications/Xcode_16.4.app
+
+      - name: 🍺 Brew Install
+        run: brew install swift-format
+
+      - name: 🖨️ Swift Format
+        run: |
+          swift format \
+            --ignore-unparsable-files \
+            --in-place \
+            --recursive \
+            ./Package.swift ./Sources ./Tests
+
+  auto-commit:
+    needs: swift-format
+    runs-on: ubuntu-latest
+    steps:
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Run swift-format
+          branch: 'main'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
