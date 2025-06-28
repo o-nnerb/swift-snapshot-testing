@@ -17,7 +17,7 @@ jobs:
         run: sudo Xcode-select -switch /Applications/Xcode_16.4.app
 
       - name: ⬇️ Get Sources
-        uses: actions/checkout@v4.0.0
+        uses: actions/checkout@v4.2.2
         with:
           fetch-depth: 0
 
